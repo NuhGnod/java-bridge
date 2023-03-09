@@ -7,6 +7,7 @@ import static bridge.constant.message.startGameMessage;
 public class GameController {
     private InputView inputView;
     private OutputView outputView;
+    private int gameTryCount=0;
     public GameController() {
     }
 
@@ -16,6 +17,7 @@ public class GameController {
     }
     public void startGame(){
         System.out.println(startGameMessage);
+        gameTryCount++;
         // 다리 길이 입력 받음.
         try {
             int bridgeSize = inputView.readBridgeSize();
@@ -23,15 +25,33 @@ public class GameController {
             BridgeGame bridgeGame = BridgeGame.getBridgeGameInstance();
             bridgeGame.setBridge(list);
             while (true) {
+
                 String moveDirection = inputView.readMoving();
                 Boolean flag = bridgeGame.move(moveDirection);
-                outputView.printMap(moveDirection, flag);
+                outputView.printMap(bridgeGame.getBridge(), bridgeGame.getCount(), flag, moveDirection);
+
+                if (flag == false) {
+
+                    String command = inputView.readGameCommand();
+                    if(command.equals("Q")){
+                        outputView.printResult(flag, gameTryCount);
+
+                        break;
+                    }
+                    if(command.equals("R")){
+                        bridgeGame.retry();
+                        gameTryCount++;
+                        outputView.reset();
+                    }
+                }
+                if (flag == true && bridgeSize == bridgeGame.getCount() ) {
+                    //성공.
+                    outputView.printResult(flag, gameTryCount);
+                    break;
+                }
             }
         } catch (IllegalArgumentException e) {
-
+            System.out.println(e.getMessage());
         }
-
-
-
     }
 }
