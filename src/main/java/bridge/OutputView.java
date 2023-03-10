@@ -72,8 +72,12 @@ public class OutputView {
             gameStatus = "실패";
         }
         System.out.println();
-        System.out.println("게임 성공 여부: " + gameStatus);
-        System.out.println("총 시도한 횟수: " + gameTryCount);
+        System.out.println(gameMessage.END_GAME_STATUS.message + gameStatus);
+        System.out.println(gameMessage.END_GAME_TRY_COUNT.message + gameTryCount);
+    }
+
+    public void printStartMessage() {
+        System.out.println(gameMessage.START_MESSAGE.message);
     }
 
     public void reset() {
@@ -102,9 +106,11 @@ public class OutputView {
     }
 
     private enum gameMessage {
+        START_MESSAGE("다리 건너기 게임을 시작합니다."),
         END_MESSAGE("최종 게임 결과"),
+        END_GAME_STATUS("게임 성공 여부: "),
+        END_GAME_TRY_COUNT("총 시도한 횟수: "),
         ;
-
         private String message;
 
         gameMessage(String message) {

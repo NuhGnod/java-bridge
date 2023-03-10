@@ -2,7 +2,6 @@ package bridge;
 
 import java.util.List;
 
-import static bridge.constant.message.startGameMessage;
 
 public class GameController {
     private InputView inputView;
@@ -16,7 +15,7 @@ public class GameController {
         this.outputView = outputView;
     }
     public void startGame(){
-        System.out.println(startGameMessage);
+        outputView.printStartMessage();
         gameTryCount++;
         // 다리 길이 입력 받음.
         try {
