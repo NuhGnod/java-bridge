@@ -39,7 +39,7 @@ public class GameController {
         gameTower.put(GameStatus.GAME_START, this::startGame);
         gameTower.put(GameStatus.CREATE_BRIDGE, this::createBridge);
         gameTower.put(GameStatus.GAME_RESTART, this::restartGame);
-        gameTower.put(GameStatus.GAME_END, this::endGame);
+        gameTower.put(GameStatus.GAME_END, this::gameEnd);
         gameTower.put(GameStatus.GAME_FAIL, this::gameFail);
         gameTower.put(GameStatus.GAME_SUCCESS, this::gameSuccess);
     }
@@ -54,7 +54,7 @@ public class GameController {
         return GameStatus.PROCESS_END;
     }
 
-    private GameStatus endGame() {
+    private GameStatus gameEnd() {
         String command = inputView.readGameCommand();
         return gameStatusFrom(command);
     }
