@@ -7,5 +7,6 @@ public enum GameStatus {
     GAME_SUCCESS,
     GAME_FAIL,
     GAME_MOVE,
-    CREATE_BRIDGE
+    CREATE_BRIDGE,
+    PROCESS_END,
 }
