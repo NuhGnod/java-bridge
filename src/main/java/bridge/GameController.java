@@ -38,10 +38,12 @@ public class GameController {
     private void initializeGameTower() {
         gameTower.put(GameStatus.GAME_START, this::startGame);
         gameTower.put(GameStatus.CREATE_BRIDGE, this::createBridge);
-        gameTower.put(GameStatus.GAME_RESTART, this::restartGame);
+//        gameTower.put(GameStatus.GAME_RESTART, this::restartGame);
         gameTower.put(GameStatus.GAME_END, this::gameEnd);
-        gameTower.put(GameStatus.GAME_FAIL, this::gameFail);
+//        gameTower.put(GameStatus.GAME_FAIL, this::gameFail);
         gameTower.put(GameStatus.GAME_SUCCESS, this::gameSuccess);
+        gameTower.put(GameStatus.GAME_Q, this::gameFail);
+        gameTower.put(GameStatus.GAME_R, this::restartGame);
     }
 
     private GameStatus gameSuccess() {
@@ -60,13 +62,9 @@ public class GameController {
     }
 
     private GameStatus gameStatusFrom(String command) {
-        if (command.equals("Q")) {
-            return GameStatus.GAME_FAIL;
-        }
-        if (command.equals("R")) {
-            return GameStatus.GAME_RESTART;
-        }
-        return null;
+        return GameStatus.from(command);
+        // Enum에서 매칭되는거 있는지 찾는 메서드를 둬도 괜찮을듯
+
     }
     private GameStatus restartGame() {
         bridgeGame.retry();
